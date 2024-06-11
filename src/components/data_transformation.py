@@ -79,21 +79,23 @@ class DataTransformation:
             train_data = pd.read_csv(train_path)
             test_data = pd.read_csv(test_path)
             
-            numerical_features = ['gender', 'SeniorCitizen', 'Partner', 'Dependents',
-            'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity',
-            'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV',
-            'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod',
-            'MonthlyCharges', 'TotalCharges','tenure_group']
             
-            for col in numerical_features:
-                self.remote_outliers_IQR(col = col,df = train_data)
+            # (here outlier capping is not required for this pertucular dataset)
+            # numerical_features = ['gender', 'SeniorCitizen', 'Partner', 'Dependents',
+            # 'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity',
+            # 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV',
+            # 'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod',
+            # 'MonthlyCharges', 'TotalCharges','tenure_group']
             
-            logging.info("Outlier capped on out train data")
+            # for col in numerical_features:
+            #     self.remote_outliers_IQR(col = col,df = train_data)
             
-            for col in numerical_features:
-                self.remote_outliers_IQR(col = col,df = test_data)
+            # logging.info("Outlier capped on out train data")
+            
+            # for col in numerical_features:
+            #     self.remote_outliers_IQR(col = col,df = test_data)
                 
-            logging.info("Outlier capped on out test data")
+            # logging.info("Outlier capped on out test data")
             
             preprocessor_obj = self.get_data_transformation_obj()
             
@@ -109,9 +111,13 @@ class DataTransformation:
             input_feature_test_data = test_data.drop(drop_column,axis = 1)
             target_feature_test_data = test_data[target_column]
             
-            #apply transformation on train and test data
-            input_train_arr = preprocessor_obj.fit_transform(input_feature_train_data)
-            input_test_arr = preprocessor_obj.transform(input_feature_test_data)
+            #apply transformation on train and test data(here label encoding is not required for this pertucular dataset)
+            # input_train_arr = preprocessor_obj.fit_transform(input_feature_train_data)
+            # input_test_arr = preprocessor_obj.transform(input_feature_test_data)
+            
+            
+            input_train_arr = input_feature_train_data
+            input_test_arr = input_feature_test_data            
             
             # apply preprocessor object on train and test data
             train_arr = np.c_[input_train_arr,np.array(target_feature_train_data)]

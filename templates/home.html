@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Churn Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="container">
+        <h1>Telecom Churn Prediction</h1>
+        <form id="churn-form"> -->
+    
+    <div class="form">
+        <form action="{{url_for('prediction_data')}}" method="POST">
+        <label for="operation"></label>
+      
+        <div class="container">
+            <form action="/action_page.php">
+            <h1 style="text-align:center;">Machine Learning Telecom Churn Prediction</h1>
+            <div class="form-group">
+                <label for="SeniorCitizen">SeniorCitizen:</label>
+                <select class="form-control" id="SeniorCitizen" name="SeniorCitizen">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="monthlyCharges">MonthlyCharges:</label>
+                <input type="number" class="form-control" id="monthlyCharges" name="MonthlyCharges">
+            </div>
+            <div class="form-group">
+                <label for="totalCharges">TotalCharges:</label>
+                <input type="number" class="form-control" id="totalCharges" name="TotalCharges">
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select class="form-control" id="gender" name="gender">
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Partner">Partner:</label>
+                <select class="form-control" id="Partner" name="Partner" autofocus>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Dependents">Dependents:</label>
+                <select class="form-control" id="Dependents" name="Dependents" autofocus>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="PhoneService">PhoneService:</label>
+                <select class="form-control" id="PhoneService" name="PhoneService" autofocus>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="MultipleLines">MultipleLines:</label>
+                <select class="form-control" id="multipleLines" name="MultipleLines" autofocus>
+                    <option value="0">No</option>
+                    <option value="2">Yes</option>
+                    <option value="1">No phone service</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="InternetService">InternetService:</label>
+                <select class="form-control" id="InternetService" name="InternetService" autofocus>
+                    <option value="0">DSL</option>
+                    <option value="1">Fiber optic</option>
+                    <option value="2">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="OnlineSecurity">OnlineSecurity:</label>
+                <select class="form-control" id="OnlineSecurity" name="OnlineSecurity" autofocus>
+                    <option value="0">No</option>
+                    <option value="2">Yes</option>
+                    <option value="1">No internet service</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="OnlineBackup">OnlineBackup:</label>
+                <select class="form-control" id="OnlineBackup" name="OnlineBackup" autofocus>
+                    <option value="0">No</option>
+                    <option value="2">Yes</option>
+                    <option value="1">No internet service</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="DeviceProtection">DeviceProtection:</label>
+                <select class="form-control" id="DeviceProtection" name="DeviceProtection" autofocus>
+                    <option value="0">No</option>
+                    <option value="2">Yes</option>
+                    <option value="1">No internet service</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="TechSupport">TechSupport:</label>
+                <select class="form-control" id="TechSupport" name="TechSupport" autofocus>
+                    <option value="0">No</option>
+                    <option value="2">Yes</option>
+                    <option value="1">No internet service</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="StreamingTV">StreamingTV:</label>
+                <select class="form-control" id="StreamingTV" name="StreamingTV" autofocus>
+                    <option value="0">No</option>
+                    <option value="2">Yes</option>
+                    <option value="1">No internet service</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="StreamingMovies">StreamingMovies:</label>
+                <select class="form-control" id="StreamingMovies" name="StreamingMovies" autofocus>
+                    <option value="0">No</option>
+                    <option value="2">Yes</option>
+                    <option value="1">No internet service</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Contract">Contract:</label>
+                <select class="form-control" id="contract" name="Contract" autofocus>
+                    <option value="0">Month-to-month</option>
+                    <option value="1">One year</option>
+                    <option value="2">Two year</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="PaperlessBilling">PaperlessBilling:</label>
+                <select class="form-control" id="PaperlessBilling" name="PaperlessBilling" autofocus>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="paymentMethod">PaymentMethod:</label>
+                <select class="form-control" id="paymentMethod" name="PaymentMethod">
+                    <option value="2">Electronic check</option>
+                    <option value="3">Mailed check</option>
+                    <option value=0">Bank transfer (automatic)</option>
+                    <option value="1">Credit card (automatic)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tenure_group">Tenure:</label>
+                <select class="form-control" id="tenure_group" name="tenure_group">
+                    <option value="1">1-12 months</option>
+                    <option value="2">13-24 months</option>
+                    <option value="3">25-36 months</option>
+                    <option value="4">37-48 months</option>
+                    <option value="5">49-60 months</option>
+                    <option value="6">61-72 months</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <!-- <textarea class="form-control" rows="2" id="output" placeholder="Prediction will appear here" readonly></textarea> -->
+    </div>
+</body>
+</html>
