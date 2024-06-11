@@ -2,4 +2,5 @@
 Customer_Churn_Project.egg-info
 logs
 src/__pycache__
+src/components/__pycache__
 artifacts
