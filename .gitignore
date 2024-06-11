@@ -5,3 +5,4 @@ src/__pycache__
 src/components/__pycache__
 artifacts
 Churn_Analysis_Model_Building.ipynb
+src\pipeline\__pycache__
