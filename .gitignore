@@ -1,6 +1,6 @@
-.venv/
-Customer_Churn_Project.egg-info/
-logs/
+.venv
+Customer_Churn_Project.egg-info
+logs
 src/__pycache__
-src/components/__pycache__/
-artifacts/
+src/components/__pycache__
+artifacts
