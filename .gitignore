@@ -1,3 +1,5 @@
-env
+.venv
 Customer_Churn_Project.egg-info
 logs
+src/__pycache__
+artifacts
