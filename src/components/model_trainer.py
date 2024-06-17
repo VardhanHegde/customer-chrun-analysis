@@ -41,26 +41,29 @@ class ModelTrainer:
             }
             
             params = {
-                "randomForest":{
-                "class_weight": ["balanced"],
-                'n_estimators': [20, 50, 30],
-                'max_depth': [10, 8, 5],
-                'min_samples_split': [2, 5, 10],
-                },
                 "decisionTree": {
                 "class_weight": ["balanced"],
                 "criterion":['gini', "entropy", "log_loss"],
                 "splitter": ['best', 'random'],
                 "max_depth": [3,4,5,6],
-                "min_samples_split": [2,3,4,5],
-                "min_samples_leaf": [1,2,3],
-                "max_features":["auto", "sqrt","log2"]
+                "min_samples_leaf": [8,6,4],
+                "max_features":["auto", "sqrt","log2"],
+                "n_estimators":[100]
+                },
+                "randomForest":{
+                "class_weight": ["balanced"],
+                'max_depth': [6, 5, 4,],
+                "min_samples_leaf": [8,6,4],
+                "random_state" : [100],
+                "n_estimators":[100]
                 },
                 "logisticRegression":{
                 "class_weight": ["balanced"],
                 'penalty': ['11', '12'],
                 'C': [0.001, 0.01, 0.1, 1, 10, 100],
-                'solver': ['liblinear', 'saga']
+                'solver': ['liblinear', 'saga'],
+                "random_state" : [100],
+                "n_estimators":[100]
                 }
             }
             

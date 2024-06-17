@@ -56,46 +56,11 @@ class DataTransformation:
         except Exception as e :
             raise CustomException(e,sys)
         
-    def remote_outliers_IQR(self,col,df):
-        try:
-            logging.info("Outliers handling code")
-            Q1 = df[col].quantile(0.25)
-            Q3 = df[col].quantile(0.75)
-            
-            iqr = Q3 -Q1            
-            upper_limit = Q3 + 1.5*iqr
-            lower_limit = Q1 - 1.5*iqr
-               
-            df.loc[(df[col]>upper_limit),col] = upper_limit
-            df.loc[(df[col]<lower_limit),col] = lower_limit
-            
-            return df
-
-        except Exception as e :
-            raise CustomException(e,sys)
         
     def initiate_data_transformation(self,train_path,test_path):
         try:
             train_data = pd.read_csv(train_path)
             test_data = pd.read_csv(test_path)
-            
-            
-            # (here outlier capping is not required for this pertucular dataset)
-            # numerical_features = ['gender', 'SeniorCitizen', 'Partner', 'Dependents',
-            # 'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity',
-            # 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV',
-            # 'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod',
-            # 'MonthlyCharges', 'TotalCharges','tenure_group']
-            
-            # for col in numerical_features:
-            #     self.remote_outliers_IQR(col = col,df = train_data)
-            
-            # logging.info("Outlier capped on out train data")
-            
-            # for col in numerical_features:
-            #     self.remote_outliers_IQR(col = col,df = test_data)
-                
-            # logging.info("Outlier capped on out test data")
             
             preprocessor_obj = self.get_data_transformation_obj()
             

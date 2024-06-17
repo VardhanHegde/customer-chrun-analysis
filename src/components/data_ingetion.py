@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from sklearn.model_selection import train_test_split
 from src.components.data_transformation import DataTransformation
 from src.components.model_trainer import ModelTrainer
+from imblearn.combine import SMOTEENN
 
 @dataclass
 class DataIngetionConfig:
@@ -26,12 +27,24 @@ class DataIngestion:
             logging.info("Data read using pands library from local system")
             data = pd.read_csv(os.path.join("notebook\data","tel_churn.csv"))
             logging.info("Data reading completed")
+            
+            y = []
+            y = pd.DataFrame(data["Churn"])
+            x = data.drop(["Churn"],axis = 1)
+            x = pd.DataFrame(x)
 
             os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path),exist_ok=True)
             data.to_csv(self.ingestion_config.raw_data_path,index =False)
             logging.info("Data splitted into train and test")
             
-            train_set ,test_set = train_test_split(data,test_size=0.3,random_state=42)
+            #smotthning the dataframe
+            sm = SMOTEENN()
+            X_resampled, y_resampled = sm.fit_resample(x,y)
+            print(X_resampled.shape)
+            print(y_resampled.shape)
+            data1 = pd.concat((X_resampled,y_resampled),axis=1,)
+            
+            train_set ,test_set = train_test_split(data1,test_size=0.3,random_state=42)
             train_set.to_csv(self.ingestion_config.train_data_path,index=False,header =True)
             test_set.to_csv(self.ingestion_config.test_data_path,index=False,header =True)
             
