@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,jsonify
 from src.pipeline.prediction_pipline import PredictionPipeline,CustomClass
-# from src.logger import logging
+from src.logger import logging
 # import os,sys
 
 app = Flask(__name__)
@@ -33,16 +33,17 @@ def prediction_data():
             tenure_group = int(request.form.get("tenure_group"))
         )
         
+    logging.info("Data has been gathered from website")
     final_data = data.get_data_into_dataframe()
-    print(final_data)
+    print(final_data) 
     pipeline_prediction = PredictionPipeline()
     pred = pipeline_prediction.predict(final_data)
     result = pred
     
     if result == 0:
-        return render_template("result.html",final_result = "Customer Will Not Churn : {}".format(result))
+        return render_template("result.html",final_result = "Customer Will Not Churn : {}".format(result[0]))
     elif result ==1:
-        return render_template("result.html",final_result = "Customer will Churn {}".format(result))
+        return render_template("result.html",final_result = "Customer will Churn {}".format(result[0]))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug = True)
